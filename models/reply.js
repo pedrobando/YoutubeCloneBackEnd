@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 
 const replySchema = new mongoose.Schema({
-    body: {type: String, required: true, minlength:2, maxlength:500},
+    text: {type: String, required: true, minlength:2, maxlength:500},
+    like: {type: number, default: 0},
+    dislike: {type: number, default: 0},
     dateModifield: {type: Date, default: Date.now}
 })
 
@@ -10,7 +12,9 @@ const Reply = mongoose.model('Reply', replySchema);
 
 function validateReply(reply){
     const schema = Joi.object({
-        body: Joi.string().min(2).max(500).required(),
+        text: Joi.string().min(2).max(500).required(),
+        like: Joi.number().min(1).max(10000),
+        dislike: Joi.number().min(1).max(10000),
     });
     return schema.validate(reply);
 }
