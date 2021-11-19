@@ -3,6 +3,8 @@ const Joi = require('joi');
 
 const commentSchema = new mongoose.Schema({
     body: {type: String, required: true, minlength:2, maxlength:500},
+    like: {type: number, default: 0},
+    reply: { reply},
     dateModifield: {type: Date, default: Date.now}
 })
 
