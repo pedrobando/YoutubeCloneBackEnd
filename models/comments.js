@@ -4,9 +4,9 @@ const Joi = require('joi');
 
 const commentSchema = new mongoose.Schema({
     text: {type: String, required: true, minlength:2, maxlength:500},
-    like: {type: number, default: 0},
-    dislike: {type: number, default: 0},
-    reply: { [type: replySchema ] },
+    like: {type: Number, default: 0},
+    dislike: {type: Number, default: 0},
+    reply: [{type: replySchema}],
     dateModifield: {type: Date, default: Date.now}
 })
 

@@ -1,4 +1,4 @@
-const { Comment, validate } = require('../models/comments');
+const { Reply, validate } = require('../models/reply');
 const express = require('express');
 const router = express.Router();
 
@@ -8,14 +8,13 @@ router.post('/', async (req, res) => {
         if (error)
             return res.status(400).send(error);
 
-        const comment = new Comment({
+        const reply = new Reply({
             text: req.body.text,
             like: req.body.dislike,
             dislike: req.body.dislike,
-
         });
-        await comment.save();
-        return res.send(comment);
+        await reply.save();
+        return res.send(reply);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
@@ -23,8 +22,8 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) =>{
     try{
-        const comment = await Comment.find();
-        return res.send(comment);
+        const reply = await Reply.find();
+        return res.send(reply);
     }catch(ex){
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
@@ -32,10 +31,10 @@ router.get('/', async (req, res) =>{
 
 router.get('/:id', async (req, res) =>{
     try{
-        const comment = await Comment.findById(req.params.id);
-        if(!comment)
+        const reply = await Reply.findById(req.params.id);
+        if(!reply)
             return res.status(400).send(`The comment with id "${req.params.id} does not exist.`);
-        return res.send(comment);
+        return res.send(reply);
     }catch(ex){
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }

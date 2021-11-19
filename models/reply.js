@@ -3,8 +3,8 @@ const Joi = require('joi');
 
 const replySchema = new mongoose.Schema({
     text: {type: String, required: true, minlength:2, maxlength:500},
-    like: {type: number, default: 0},
-    dislike: {type: number, default: 0},
+    like: {type: Number, default: 0},
+    dislike: {type: Number, default: 0},
     dateModifield: {type: Date, default: Date.now}
 })
 
