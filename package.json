@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "joy": "^0.1.1",
