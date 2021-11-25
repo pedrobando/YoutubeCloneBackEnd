@@ -20,5 +20,5 @@ function validateReply(reply){
 }
 
 exports.Reply = Reply;
-exports.validate = validateReply; 
+exports.validateReply = validateReply; 
 exports.replySchema = replySchema;

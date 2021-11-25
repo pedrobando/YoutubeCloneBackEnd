@@ -1,8 +1,8 @@
-const { Reply, validate } = require('../models/reply');
+const { Reply, validateReply } = require('../models/reply');
 const express = require('express');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/:commentId/', async (req, res) => {
     try {
         const {error} = validate(req.body);
         if (error)
