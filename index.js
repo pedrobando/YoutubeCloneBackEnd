@@ -1,7 +1,7 @@
 const connectDB = require('./startup/db');
 const express = require('express');
 const app = express();
-const comments = require('./routes/comments')
+const comments = require('./routes/comments');
 
 connectDB();
 
