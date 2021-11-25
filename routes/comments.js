@@ -34,7 +34,7 @@ router.get('/', async (req, res) =>{
 
 router.get('/:id', async (req, res) =>{
     try{
-        const comment = await Comment.findById(req.params.id);
+        const comment = await Comment.find({videoid: req.params.id}).sort({dateModified: -1});
         if(!comment)
             return res.status(400).send(`The comment with id "${req.params.id} does not exist.`);
         return res.send(comment);
