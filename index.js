@@ -2,10 +2,7 @@ const connectDB = require('./startup/db');
 const express = require('express');
 const app = express();
 const comments = require('./routes/comments');
-<<<<<<< HEAD
-=======
 const cors = require('cors')
->>>>>>> ba8b216aa8922cc2119fa6b985c6b61fb433b2ea
 
 connectDB();
 
