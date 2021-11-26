@@ -98,8 +98,8 @@ router.post("/:commentId/replies/", async (req, res) => {
       dislike: req.body.dislike,
     });
     if (!reply) return res.status(400).send(`Reply doesnt exist.`);
-
-    comment.reply.push(reply);
+    console.log(comment.replies);
+    comment.replies.push(reply);
     await comment.save();
     return res.send(comment.reply);
   } catch (ex) {
@@ -134,9 +134,8 @@ router.get("/:commentId/replies/", async (req, res) => {
         .status(400)
         .send(`The comment with id "${req.params.commentId}" does not exist.`);
 
-    const reply = await Reply.find();
-
-    return res.send(comment.reply);
+    const reply = comment.replies;
+    return res.send(comment.replies);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
@@ -156,7 +155,7 @@ router.get("/:commentId/replies/:replyId", async (req, res) => {
         .status(400)
         .send(`The reply with id ${req.params.replyId} does not exist.`);
 
-    return res.send(comment.reply);
+    return res.send(reply);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
@@ -164,8 +163,8 @@ router.get("/:commentId/replies/:replyId", async (req, res) => {
 
 router.put("/:commentId/replies/:replyId", async (req, res) => {
   try {
-    // const { error } = validateReply(req.body);
-    //     if (error) return res.status(400).send(error);
+    const { error } = validateReply(req.body);
+    if (error) return res.status(400).send(error);
 
     const comment = await Comment.findById(req.params.commentId);
     if (!comment)
