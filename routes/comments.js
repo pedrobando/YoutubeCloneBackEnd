@@ -39,11 +39,28 @@ router.get("/:id", async (req, res) => {
       return res
         .status(400)
         .send(`The comment with id "${req.params.id} does not exist.`);
+        console.log(comment);
     return res.send(comment);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
+
+// router.get("/:id", async (req, res) => {
+//     try {
+//       const comment = await Comment.find({ _id: req.params.id }).sort({
+//         dateModified: -1,
+//       });
+//       if (!comment)
+//         return res
+//           .status(400)
+//           .send(`The comment with id "${req.params.id} does not exist.`);
+//           console.log(comment);
+//       return res.send(comment);
+//     } catch (ex) {
+//       return res.status(500).send(`Internal Server Error: ${ex}`);
+//     }
+//   });
 
 router.put("/:id", async (req, res) => {
   try {
@@ -98,7 +115,6 @@ router.post("/:commentId/replies/", async (req, res) => {
       dislike: req.body.dislike,
     });
     if (!reply) return res.status(400).send(`Reply doesnt exist.`);
-    console.log(comment.replies);
     comment.replies.push(reply);
     await comment.save();
     return res.send(comment.reply);
@@ -154,7 +170,7 @@ router.get("/:commentId/replies/:replyId", async (req, res) => {
       return res
         .status(400)
         .send(`The reply with id ${req.params.replyId} does not exist.`);
-
+    
     return res.send(reply);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
