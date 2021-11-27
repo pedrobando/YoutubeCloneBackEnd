@@ -13,8 +13,8 @@ const Reply = mongoose.model('Reply', replySchema);
 function validateReply(reply){
     const schema = Joi.object({
         text: Joi.string().min(2).max(500).required(),
-        like: Joi.number().min(1).max(10000),
-        dislike: Joi.number().min(1).max(10000),
+        like: Joi.number().min(0).max(10000),
+        dislike: Joi.number().min(0).max(10000),
     });
     return schema.validate(reply);
 }

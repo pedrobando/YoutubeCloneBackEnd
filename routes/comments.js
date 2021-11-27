@@ -194,17 +194,17 @@ router.put("/:commentId/replies/:replyId", async (req, res) => {
       .status(400)
       .send(`The comment with id "${req.params.replyId}" does not exist.`);
 
-    const comment = await Comment.findOneAndUpdate(
+    const comment = await Comment.findById(req.params.commentId);
+    console.log(comment)
+    const reply = comment.replies.id(
       req.params.replyId,
-      {$set:{
-        like: req.body.like,
-        dislike: req.body.dislike,
-      }},
-      { new: true }
     );
-    
-    console.log(comment);
+    reply.like= req.body.like,
+    reply.dislike= req.body.dislike,
+    reply.text= req.body.text
+    //console.log(comment)
     await comment.save();
+
     return res.send(comment);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
